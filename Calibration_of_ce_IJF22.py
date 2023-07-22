@@ -246,7 +246,7 @@ b=PETScVector()
 
 #Balance of configurational forces PDE
 Wv=pen/2*((abs(z)-z)**2 + (abs(1-z) - (1-z))**2 )*dx
-Wv2=20*pen/2*( 1/4*( abs(z_prev+0.0005-z)-(z_prev+0.0005-z) )**2 )*dx
+Wv2=conditional(le(z, 0.1), 1, 0)*40*pen/2*( 1/4*( abs(z_prev-z)-(z_prev-z) )**2 )*dx
 if phase_model==1:
 	R_z = y*2*z*(psi11)*dx+ y*(ce)*dx+3*Gc/8*(y*(-1)/eps + 2*eps*inner(grad(z),grad(y)))*dx + derivative(Wv,z,y) #+ y*(ce)*dx #linear model
 else:
